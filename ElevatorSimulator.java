@@ -4,15 +4,10 @@ import java.util.Random;
 
 public class ElevatorSimulator extends elevators3 {
     static int ticks;
-
     static ArrayList<Floor> floorList;
-
     static ArrayList<Elevator> elevatorList;
-
     static ArrayList<Passenger> passengersToRequestAgain;
-
     static int numberOfPassengers;
-
     static int allTimes;
     static int max;
     static int min;
@@ -61,6 +56,7 @@ public class ElevatorSimulator extends elevators3 {
                 elevatorList.get(i).travel();
                 elevatorList.get(i).loadAndUnload();
             }
+            requestAgain();
         }
         getFinalReport();
     }
@@ -111,43 +107,19 @@ public class ElevatorSimulator extends elevators3 {
         return passAdded;
     }
 
-    /*
-
-    public boolean addToElevator(Passenger pass) {
-        boolean passAdded = false;
-        for (int i = 0; i < elevatorList.size(); i++) {
-            Elevator elev = elevatorList.get(i);
-            if (elev.isFull() == false) {
-                /* Trying w/out checking if higher or lower than current floor
-                if (elev.up == true) {
-                    if (pass.StartFloor >= elev.ElevFloor && pass.up == true) {
-                        elev.floorQueUp.add(pass.StartFloor);
-                        passAdded = true;
-                    }
-                    if (pass.up == false) {
-                        elev.floorQueDown.add(pass.StartFloor);
-                        passAdded = true;
-                    }
-                } else {
-                    if (pass.up == false && pass.StartFloor <= elev.ElevFloor) {
-                        elev.floorQueDown.add(pass.StartFloor);
-                        passAdded = true;
-                    } else if (pass.up == true) {
-                        elev.floorQueUp.add(pass.StartFloor);
-                        passAdded = true;
-                    }
-                }
-            }
-            elev.printQues();
-            printNeedtoReq();
+    public void requestAgain() {
+        if (passengersToRequestAgain.isEmpty()) {
+            return;
         }
-        return passAdded;
+        for (int i = 0; i <= passengersToRequestAgain.size(); i++) {
+            Passenger pass = passengersToRequestAgain.remove(0);
+            addToElevator(pass);
+        }
     }
-    */
+
+
 
     public static void printWaitingPassengers() {
-        //Implimented for testing
-        //For each floor, iterate through and print out passengers currently on the floor waiting to be picked up.
         for (int i = 0; i < floorNumber; i++) {
             Floor currFloor = floorList.get(i);
             System.out.println();

@@ -1,7 +1,8 @@
-import java.util.*;
 import java.io.*;
 import java.util.Properties;
+/*Elevatos3 class (the main class) either takes in a given properties file or it uses the built-in one. */
 public class elevators3 {
+
     static String structures;
     static int floorNumber;
     static double passengers;
@@ -10,7 +11,7 @@ public class elevators3 {
     static int duration;
 
     public static void main(String[] args) throws Exception {
-        // get all the system properties
+
         Properties prop = new Properties();
         if (args.length < 1) {
             FileReader propFile = new FileReader("db.properties");

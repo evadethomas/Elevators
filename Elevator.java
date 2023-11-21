@@ -104,8 +104,9 @@ public class Elevator {
     public void load() {
         //See load up, but this if for down
         Floor floor = ElevatorSimulator.floorList.get(ElevFloor);
-        int passengersToTake = floor.waitingUp.size();
+
         if (up == true) {
+            int passengersToTake = floor.waitingUp.size();
             if (floor.waitingUp.size() > elevators3.elevatorCapacity - (stopUp.size() + stopDown.size())) {
                 passengersToTake = elevators3.elevatorCapacity - (stopUp.size() + stopDown.size());
             }
@@ -115,37 +116,25 @@ public class Elevator {
                 stopUp.add(pass);
                 floorQueUp.add(pass.EndFloor);
                 leftOff = i;
-            /* FOR TESTING:
-            System.out.println("OLD QUE");
-            printQues();
-            floorQueUp.add(pass.EndFloor);
-            System.out.println("NEW QUE");
-            printQues();
-            */
             }
-
             for (int j = leftOff; j < floor.waitingUp.size(); j++) {
                 Passenger pass = floor.waitingUp.poll();
                 ElevatorSimulator.passengersToRequestAgain.add(pass);
             }
         } else {
-            if (floor.waitingDown.size() < elevators3.elevatorCapacity - (stopDown.size() + stopUp.size())) {
-                passengersToTake = floor.waitingDown.size();
+            int passengersToTake = floor.waitingDown.size();
+            if (floor.waitingDown.size() > (elevators3.elevatorCapacity - (stopUp.size() + stopDown.size()))) {
+                passengersToTake = elevators3.elevatorCapacity - (stopUp.size() + stopDown.size());
             }
             int leftOff = 0;
             for (int i = 0; i < passengersToTake; i++) {
                 Passenger pass = floor.waitingDown.poll();
-                stopDown.add(pass);
+                if (pass != null) {
+                    stopDown.add(pass);
+                }
                 floorQueDown.add(pass.EndFloor);
-            /* FOR TESTING:
-            System.out.println("OLD QUE");
-            printQues();
-            floorQueUp.add(pass.EndFloor);
-            System.out.println("NEW QUE");
-            printQues();
-            */
+                leftOff = i;
             }
-
             for (int j = leftOff; j < floor.waitingDown.size(); j++) {
                 Passenger pass = floor.waitingDown.poll();
                 ElevatorSimulator.passengersToRequestAgain.add(pass);
