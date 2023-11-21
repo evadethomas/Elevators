@@ -31,7 +31,7 @@ public class ElevatorSimulator extends elevators3 {
         //Initializing class global variables
         ticks = 0;
 
-        if (structures == "Linked") {
+        if (structures == "linked") {
             this.elevatorList = new LinkedList<Elevator>();
             this.floorList = new LinkedList<Floor>();
             this.passengersToRequestAgain = new LinkedList<Passenger>();

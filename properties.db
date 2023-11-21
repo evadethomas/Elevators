@@ -1,6 +1,6 @@
-structures = "Linked"
+structures = "linked"
 floors = 32
-passengers = 0.5
+passengers = 0.03
 elevators = 1
 elevatorCapacity = 10
 duration = 500

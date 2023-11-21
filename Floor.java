@@ -10,7 +10,7 @@ public class Floor {
     /* Floor constructor */
     public Floor() {
 
-        if (elevators3.structures == "Linked") {
+        if (elevators3.structures == "linked") {
             waitingUp = new LinkedList<Passenger>();
             waitingDown = new LinkedList<Passenger>();
         } else {
