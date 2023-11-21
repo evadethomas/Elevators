@@ -4,15 +4,20 @@ import java.util.PriorityQueue;
 import java.util.Collections;
 
 public class Elevator {
+    /* Elevator globals: up gives direction elevator is headed. ElevFloor is the current floor.*/
     boolean up;
     int ElevFloor;
+    /* stopUp and stopDown are the passengers that are actually ON the elevator. In the form of priority que. */
     PriorityQueue<Passenger> stopUp;
     PriorityQueue<Passenger> stopDown;
+    /* floorQueUp and floorQueDown are priority queues of integers that have the endStop of passengers already on board,
+    * and the firstFloor of passengers waiting to be picked up. Will be up or down depending on direction of the
+    * passenger. */
     PriorityQueue<Integer> floorQueUp;
     PriorityQueue<Integer> floorQueDown;
 
+    /* Elevator class constructor. */
     public Elevator() {
-
         this.ElevFloor = 0;
         up = true;
         Comparator<Passenger> stopUpComparator = Comparator.comparingInt(Passenger::getEndFloor);
