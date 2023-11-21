@@ -6,11 +6,14 @@ public class Passenger extends elevators3 {
     int startTime;
     int endTime;
 
+    int totalTime;
+
     boolean up;
 
     public Passenger(int i, int currentTick) {
         setFloors(i);
         setStartTime(currentTick);
+        totalTime = 0;
     }
 
 
@@ -44,4 +47,8 @@ public class Passenger extends elevators3 {
     }
 
     public boolean getDirection() {return up;}
+
+    public int getTotalTime() {
+        return this.endTime - this.startTime;
+    }
 }

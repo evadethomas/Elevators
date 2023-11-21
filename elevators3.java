@@ -39,6 +39,5 @@ public class elevators3 {
         ElevatorSimulator simulation = new ElevatorSimulator();
         simulation.runSimulation();
 
-
     }
 }
