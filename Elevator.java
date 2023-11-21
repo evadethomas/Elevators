@@ -7,6 +7,7 @@ public class Elevator {
     boolean up;
     int ElevFloor;
     /* stopUp and stopDown are the passengers that are actually ON the elevator. In the form of priority que. */
+
     PriorityQueue<Passenger> stopUp;
     PriorityQueue<Passenger> stopDown;
     /* floorQueUp and floorQueDown are priority queues of integers that have the endStop of passengers already on board,
@@ -78,7 +79,8 @@ public class Elevator {
                 * end time. */
                 Passenger pass = stopUp.poll();
                 pass.setEndTime(ElevatorSimulator.ticks);
-                ElevatorSimulator.allTimes += pass.getTotalTime();
+                ElevatorSimulator.incrementAllPassengers();
+                ElevatorSimulator.incrementAllTimes(pass.getTotalTime());
                 ElevatorSimulator.calcMinAndMax(pass);
                 /* Break out early if its empty (handles NullPointerException) */
                 if (stopUp.isEmpty()) {
@@ -92,7 +94,8 @@ public class Elevator {
             while (!stopDown.isEmpty() && stopDown.peek().EndFloor == ElevFloor) {
                 Passenger pass = stopDown.poll();
                 pass.setEndTime(ElevatorSimulator.ticks);
-                ElevatorSimulator.allTimes += pass.getTotalTime();
+                ElevatorSimulator.incrementAllPassengers();
+                ElevatorSimulator.incrementAllTimes(pass.getTotalTime());
                 ElevatorSimulator.calcMinAndMax(pass);
                 if (stopDown.isEmpty()) {
                     break;

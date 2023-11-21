@@ -1,3 +1,5 @@
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -7,8 +9,17 @@ public class Floor {
     Queue<Passenger> waitingDown;
     /* Floor constructor */
     public Floor() {
-        waitingUp = new LinkedList<Passenger>();
-        waitingDown = new LinkedList<Passenger>();
+
+        if (elevators3.structures == "Linked") {
+            waitingUp = new LinkedList<Passenger>();
+            waitingDown = new LinkedList<Passenger>();
+        } else {
+            waitingUp = new ArrayDeque<Passenger>();
+            waitingDown = new ArrayDeque<Passenger>();
+        }
+
+
+
     }
     /* Adds a passenger to the floor, adading to either the going up or going down queue. */
     public void addPass(Passenger pass) {

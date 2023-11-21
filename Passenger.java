@@ -38,6 +38,7 @@ public class Passenger extends elevators3 {
     /* SetsEndTime when passenger is dropped off. */
     public void setEndTime(int i) {
         this.endTime = i;
+
     }
 /* Again, used for testing, prints out the different passengers.
     public void printPassenger() {

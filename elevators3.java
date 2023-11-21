@@ -1,5 +1,11 @@
 import java.io.*;
 import java.util.Properties;
+/***
+ * @author EvaDeThomas
+ *
+ * For information on implimentation and methods see detailed comments and README file.
+ * */
+
 /*Elevators3 class (the main class) either takes in a given properties file or it uses the built-in one. */
 public class elevators3 {
     static String structures;
@@ -14,7 +20,7 @@ public class elevators3 {
         Properties prop = new Properties();
         //if no arguments given, use inherent property file.
         if (args.length < 1) {
-            FileReader propFile = new FileReader("db.properties");
+            FileReader propFile = new FileReader("properties.db");
             prop.load(propFile);
         } else {
             /*If given an argument, read in the file and load properties from it. Try and catch catches any error
@@ -24,6 +30,7 @@ public class elevators3 {
                 prop.load(propFile);
             } catch (Exception e) {
                 System.out.println("Error reading file");
+                System.exit(0);
             }
         }
 

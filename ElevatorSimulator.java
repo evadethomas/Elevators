@@ -1,21 +1,25 @@
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /*Elevator simulator class actually runs the simulation, calls instances of all other classes and extends the Elevators3
 * class. */
 public class ElevatorSimulator extends elevators3 {
     //Ticks are the current ticks
     static int ticks;
     //floorList contains all floors, each of which has a que of passengers.
-    static ArrayList<Floor> floorList;
+    static List<Floor> floorList;
     //ElevatorList contains all the elevators, instances of the elevators class.
-    static ArrayList<Elevator> elevatorList;
+    static List<Elevator> elevatorList;
     /* PassengersToRequestAgain are passengers that needed to be re-qued because the elevator capacity was too high
      * (This is often not used).
      */
-    static ArrayList<Passenger> passengersToRequestAgain;
+    static List<Passenger> passengersToRequestAgain;
     //Total number of passengers
-    static int numberOfPassengers;
+    public static int numberOfPassengers;
     //Total number of time (to calculate the average)
-    static int allTimes;
+    public static int allTimes;
     //Max time passenger is on elevator
     static int max;
     //min time passenger is on elevator
@@ -27,9 +31,16 @@ public class ElevatorSimulator extends elevators3 {
         //Initializing class global variables
         ticks = 0;
 
-        this.elevatorList = new ArrayList<Elevator>();
+        if (structures == "Linked") {
+            this.elevatorList = new LinkedList<Elevator>();
+            this.floorList = new LinkedList<Floor>();
+            this.passengersToRequestAgain = new LinkedList<Passenger>();
+        } else {
+            this.elevatorList = new ArrayList<Elevator>();
+            this.floorList = new ArrayList<Floor>();
+            this.passengersToRequestAgain = new ArrayList<Passenger>();
+        }
 
-        this.passengersToRequestAgain = new ArrayList<Passenger>();
         //Creates proper number of elevators depending on properties file variable.
         for (int i = 0; i < elevatorNumber; i++) {
             Elevator newElevator = new Elevator();
@@ -60,10 +71,18 @@ public class ElevatorSimulator extends elevators3 {
         }
     }
 
+    public static void incrementAllTimes(int totalTime) {
+        allTimes += totalTime;
+    }
+
+    public static void incrementAllPassengers() {
+        numberOfPassengers += 1;
+    }
+
     /*Runs the actual simulation, incrimenting through ticks. First it generates passengers, travels, unloads, then
     * loads. It also handles when passengers need to re-request. */
     public void runSimulation() {
-        //While loopo incriments ticks up to given duration from property file.
+        //While loop increments ticks up to given duration from property file.
         while (ticks < duration) {
             ticks++;
             //generate passengers generates a passenger based on given probability on all the floors. See function.
@@ -83,7 +102,7 @@ public class ElevatorSimulator extends elevators3 {
 
     private void getFinalReport() {
         /* Requested final report from spec. */
-        double averageTime = allTimes / numberOfPassengers;
+        double averageTime = (double)allTimes / (double)numberOfPassengers;
         System.out.println("Average time: " + averageTime);
         System.out.println("Max time: " + max);
         System.out.println("Min time: " + min);
@@ -100,7 +119,6 @@ public class ElevatorSimulator extends elevators3 {
                 Floor toAddTo = floorList.get(i);
                 //Passenger constructor
                 Passenger pass = new Passenger(i, ticks);
-                numberOfPassengers += 1;
                 toAddTo.addPass(pass);
                 //See if passenger made it on the elevator or if it was at capacity.
                 boolean wasAdded = addToElevator(pass);
@@ -138,7 +156,7 @@ public class ElevatorSimulator extends elevators3 {
         if (passengersToRequestAgain.isEmpty()) {
             return;
         }
-        //If there are, re-queue them with the addToElevator funciton.
+        //If there are, re-queue them with the addToElevator function.
         for (int i = 0; i <= passengersToRequestAgain.size(); i++) {
             Passenger pass = passengersToRequestAgain.remove(0);
             addToElevator(pass);
