@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Properties;
-/*Elevatos3 class (the main class) either takes in a given properties file or it uses the built-in one. */
+/*Elevators3 class (the main class) either takes in a given properties file or it uses the built-in one. */
 public class elevators3 {
     static String structures;
     static int floorNumber;
